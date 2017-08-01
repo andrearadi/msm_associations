@@ -28,10 +28,13 @@ class CharactersController < ApplicationController
     @character.actor_id = params[:actor_id]
     @character.name = params[:name]
 
-    @character.save
+    save_status = @character.save
 
-  
+    if save_status == true
+      redirect_to("/character/#{@character.id}", :notice => "Character created successfully.")
+    else
     render("characters/new.html.erb")
+    end
   end
 
 #EDIT
@@ -49,9 +52,13 @@ class CharactersController < ApplicationController
     @character.actor_id = params[:actor_id]
     @character.name = params[:name]
 
-    @character.save
+    save_status = @character.save
 
-
+    if save_status == true
+      redirect_to("/character/#{@character.id}", :notice => "Character created successfully.")
+    else
+    render("characters/new.html.erb")
+    end
     render("characters/edit.html.erb")
   end
 
