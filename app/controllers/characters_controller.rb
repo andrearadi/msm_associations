@@ -1,26 +1,22 @@
 class CharactersController < ApplicationController
-#INDEX
   def index
     @characters = Character.all
 
     render("characters/index.html.erb")
   end
 
-#SHOW
   def show
     @character = Character.find(params[:id])
 
     render("characters/show.html.erb")
   end
 
-#NEW
   def new
     @character = Character.new
 
     render("characters/new.html.erb")
   end
-  
-#CREATE
+
   def create
     @character = Character.new
 
@@ -31,20 +27,18 @@ class CharactersController < ApplicationController
     save_status = @character.save
 
     if save_status == true
-      redirect_to("/character/#{@character.id}", :notice => "Character created successfully.")
+      redirect_to("/characters/#{@character.id}", :notice => "Character created successfully.")
     else
-    render("characters/new.html.erb")
+      render("characters/new.html.erb")
     end
   end
 
-#EDIT
   def edit
     @character = Character.find(params[:id])
 
     render("characters/edit.html.erb")
   end
 
-#UPDATE
   def update
     @character = Character.find(params[:id])
 
@@ -55,20 +49,21 @@ class CharactersController < ApplicationController
     save_status = @character.save
 
     if save_status == true
-      redirect_to("/character/#{@character.id}", :notice => "Character created successfully.")
+      redirect_to("/characters/#{@character.id}", :notice => "Character updated successfully.")
     else
-    render("characters/new.html.erb")
+      render("characters/edit.html.erb")
     end
-    render("characters/edit.html.erb")
   end
 
   def destroy
     @character = Character.find(params[:id])
-    
+
     @character.destroy
-    
+
+    if URI(request.referer).path == "/characters/#{@character.id}"
+      redirect_to("/", :notice => "Character deleted.")
+    else
+      redirect_to(:back, :notice => "Character deleted.")
+    end
   end
 end
-
-
-   
