@@ -23,6 +23,17 @@
         <label for="name" class="control-label">
           Name
         </label>
+        
+        
+        <!-- Label and input for movie_id -->
+      <div class="form-group">
+        <label for="movie_id" class="control-label">
+          Movie
+        </label>
+
+        <%= select_tag("movie_id", options_from_collection_for_select(Movie.all, :id, :title, @character.movie_id), :class => "form-control") %>
+        
+      </div>
 
         <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="<%= @director.name %>">
       </div>
@@ -62,3 +73,10 @@
     </form>
   </div>
 </div>
+
+
+
+
+
+
+
